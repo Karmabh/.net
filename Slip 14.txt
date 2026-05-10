@@ -1,0 +1,122 @@
+Q1)
+
+
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+public class Form1 : Form
+{
+    PictureBox pic;
+    Timer t;
+
+    public Form1()
+    {
+        this.Text = "Blink Image";
+        this.Size = new Size(400, 300);
+
+        pic = new PictureBox();
+        pic.Image = Image.FromFile("sample.jpg");   // put image in project folder
+        pic.SizeMode = PictureBoxSizeMode.StretchImage;
+        pic.Size = new Size(150, 150);
+        pic.Location = new Point(100, 50);
+        this.Controls.Add(pic);
+
+        t = new Timer();
+        t.Interval = 500;   // blink every 500 ms
+        t.Tick += new EventHandler(BlinkImage);
+        t.Start();
+    }
+
+    void BlinkImage(object sender, EventArgs e)
+    {
+        pic.Visible = !pic.Visible;   // show/hide image
+    }
+
+    [STAThread]
+    static void Main()
+    {
+        Application.Run(new Form1());
+    }
+}
+
+
+
+
+Q2)
+
+
+using System;
+using System.Data.SqlClient;
+using System.Windows.Forms;
+
+public class Form1 : Form
+{
+    TextBox txtNo, txtName, txtSal;
+    Button btnInsert, btnUpdate, btnDelete;
+    SqlConnection con = new SqlConnection(@"Data Source=.;Initial Catalog=CompanyDB;Integrated Security=True");
+
+    public Form1()
+    {
+        this.Text = "Emp Table";
+        this.Size = new System.Drawing.Size(350, 250);
+
+        Label l1 = new Label() { Text = "ENo", Location = new System.Drawing.Point(20, 20) };
+        Label l2 = new Label() { Text = "EName", Location = new System.Drawing.Point(20, 60) };
+        Label l3 = new Label() { Text = "Salary", Location = new System.Drawing.Point(20, 100) };
+
+        txtNo = new TextBox() { Location = new System.Drawing.Point(100, 20) };
+        txtName = new TextBox() { Location = new System.Drawing.Point(100, 60) };
+        txtSal = new TextBox() { Location = new System.Drawing.Point(100, 100) };
+
+        btnInsert = new Button() { Text = "Insert", Location = new System.Drawing.Point(20, 150) };
+        btnUpdate = new Button() { Text = "Update", Location = new System.Drawing.Point(110, 150) };
+        btnDelete = new Button() { Text = "Delete", Location = new System.Drawing.Point(210, 150) };
+
+        btnInsert.Click += InsertData;
+        btnUpdate.Click += UpdateData;
+        btnDelete.Click += DeleteData;
+
+        Controls.AddRange(new Control[] { l1, l2, l3, txtNo, txtName, txtSal, btnInsert, btnUpdate, btnDelete });
+    }
+
+    void InsertData(object sender, EventArgs e)
+    {
+        con.Open();
+        SqlCommand cmd = new SqlCommand("insert into Emp values(@no,@name,@sal)", con);
+        cmd.Parameters.AddWithValue("@no", txtNo.Text);
+        cmd.Parameters.AddWithValue("@name", txtName.Text);
+        cmd.Parameters.AddWithValue("@sal", txtSal.Text);
+        cmd.ExecuteNonQuery();
+        con.Close();
+        MessageBox.Show("Record Inserted");
+    }
+
+    void UpdateData(object sender, EventArgs e)
+    {
+        con.Open();
+        SqlCommand cmd = new SqlCommand("update Emp set EName=@name, Salary=@sal where ENo=@no", con);
+        cmd.Parameters.AddWithValue("@no", txtNo.Text);
+        cmd.Parameters.AddWithValue("@name", txtName.Text);
+        cmd.Parameters.AddWithValue("@sal", txtSal.Text);
+        cmd.ExecuteNonQuery();
+        con.Close();
+        MessageBox.Show("Record Updated");
+    }
+
+    void DeleteData(object sender, EventArgs e)
+    {
+        con.Open();
+        SqlCommand cmd = new SqlCommand("delete from Emp where ENo=@no", con);
+        cmd.Parameters.AddWithValue("@no", txtNo.Text);
+        cmd.ExecuteNonQuery();
+        con.Close();
+        MessageBox.Show("Record Deleted");
+    }
+
+    [STAThread]
+    static void Main()
+    {
+        Application.Run(new Form1());
+    }
+}

@@ -1,0 +1,112 @@
+Q1))
+
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int num, i;
+        bool isPrime = true;
+
+        Console.Write("Enter a number: ");
+        num = Convert.ToInt32(Console.ReadLine());
+
+        if (num <= 1)
+        {
+            isPrime = false;
+        }
+        else
+        {
+            for (i = 2; i <= num / 2; i++)
+            {
+                if (num % i == 0)
+                {
+                    isPrime = false;
+                    break;
+                }
+            }
+        }
+
+        if (isPrime)
+            Console.WriteLine(num + " is a Prime Number");
+        else
+            Console.WriteLine(num + " is not a Prime Number");
+    }
+}
+
+
+
+
+Q2))
+
+
+
+using System;
+
+// Base Class
+class Student
+{
+    protected int roll_no;
+    protected string name;
+
+    public void GetStudent()
+    {
+        Console.Write("Enter Roll No: ");
+        roll_no = Convert.ToInt32(Console.ReadLine());
+
+        Console.Write("Enter Name: ");
+        name = Console.ReadLine();
+    }
+}
+
+// Derived Class 1
+class Test : Student
+{
+    protected int marks1, marks2;
+
+    public void GetMarks()
+    {
+        Console.Write("Enter Marks 1: ");
+        marks1 = Convert.ToInt32(Console.ReadLine());
+
+        Console.Write("Enter Marks 2: ");
+        marks2 = Convert.ToInt32(Console.ReadLine());
+    }
+}
+
+// Derived Class 2
+class Result : Test
+{
+    private int total;
+
+    public void CalculateResult()
+    {
+        total = marks1 + marks2;
+    }
+
+    public void Display()
+    {
+        Console.WriteLine("\n--- Student Result ---");
+        Console.WriteLine("Roll No : " + roll_no);
+        Console.WriteLine("Name    : " + name);
+        Console.WriteLine("Marks 1 : " + marks1);
+        Console.WriteLine("Marks 2 : " + marks2);
+        Console.WriteLine("Total   : " + total);
+    }
+}
+
+// Main Class
+class Program
+{
+    static void Main()
+    {
+        Result r = new Result();
+
+        r.GetStudent();
+        r.GetMarks();
+        r.CalculateResult();
+        r.Display();
+    }
+}

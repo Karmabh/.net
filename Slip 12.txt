@@ -1,0 +1,90 @@
+Q1))
+
+using System;
+
+class SumFirstLastDigit
+{
+    static void Main()
+    {
+        int num, firstDigit, lastDigit, sum;
+
+        Console.Write("Enter a number: ");
+        num = int.Parse(Console.ReadLine());
+
+        lastDigit = num % 10;   // Get last digit
+
+        // Find first digit
+        firstDigit = num;
+        while (firstDigit >= 10)
+        {
+            firstDigit /= 10;
+        }
+
+        sum = firstDigit + lastDigit;
+
+        Console.WriteLine("Sum of first and last digits = " + sum);
+    }
+}
+
+
+
+Q2))
+
+
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+public class Form1 : Form
+{
+    TextBox txtName, txtMsg;
+    Label lbl;
+    CheckBox cbBold, cbItalic, cbUnderline;
+    Button btnShow, btnTextColor, btnBackColor;
+    ColorDialog cd = new ColorDialog();
+
+    public Form1()
+    {
+        this.Text = "Message App";
+        this.Size = new Size(400, 300);
+
+        txtName = new TextBox() { Location = new Point(20, 20), Width = 150 };
+        txtMsg = new TextBox() { Location = new Point(200, 20), Width = 150 };
+
+        btnShow = new Button() { Text = "Show", Location = new Point(20, 60) };
+        btnShow.Click += (s, e) => lbl.Text = txtName.Text + " " + txtMsg.Text;
+
+        cbBold = new CheckBox() { Text = "Bold", Location = new Point(20, 100) };
+        cbItalic = new CheckBox() { Text = "Italic", Location = new Point(80, 100) };
+        cbUnderline = new CheckBox() { Text = "Underline", Location = new Point(140, 100) };
+
+        cbBold.CheckedChanged += Style;
+        cbItalic.CheckedChanged += Style;
+        cbUnderline.CheckedChanged += Style;
+
+        btnTextColor = new Button() { Text = "Text Color", Location = new Point(20, 140) };
+        btnBackColor = new Button() { Text = "Back Color", Location = new Point(120, 140) };
+
+        btnTextColor.Click += (s, e) => { if (cd.ShowDialog() == DialogResult.OK) lbl.ForeColor = cd.Color; };
+        btnBackColor.Click += (s, e) => { if (cd.ShowDialog() == DialogResult.OK) lbl.BackColor = cd.Color; };
+
+        lbl = new Label() { Location = new Point(20, 190), Width = 330, Height = 40, BorderStyle = BorderStyle.FixedSingle };
+
+        Controls.AddRange(new Control[] { txtName, txtMsg, btnShow, cbBold, cbItalic, cbUnderline, btnTextColor, btnBackColor, lbl });
+    }
+
+    void Style(object sender, EventArgs e)
+    {
+        FontStyle fs = FontStyle.Regular;
+        if (cbBold.Checked) fs |= FontStyle.Bold;
+        if (cbItalic.Checked) fs |= FontStyle.Italic;
+        if (cbUnderline.Checked) fs |= FontStyle.Underline;
+        lbl.Font = new Font("Arial", 12, fs);
+    }
+
+    [STAThread]
+    static void Main()
+    {
+        Application.Run(new Form1());
+    }
+}

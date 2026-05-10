@@ -1,0 +1,67 @@
+Q1))
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int num, temp, rem, sum = 0;
+
+        Console.Write("Enter a number: ");
+        num = Convert.ToInt32(Console.ReadLine());
+
+        temp = num;
+
+        while (temp > 0)
+        {
+            rem = temp % 10;
+            sum = sum + (rem * rem * rem);
+            temp = temp / 10;
+        }
+
+        if (sum == num)
+            Console.WriteLine(num + " is an Armstrong Number");
+        else
+            Console.WriteLine(num + " is not an Armstrong Number");
+    }
+}
+
+
+
+Q2))
+
+
+using System;
+using System.Windows.Forms;
+
+namespace PalindromeNumberApp
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void btnCheck_Click(object sender, EventArgs e)
+        {
+            int num, temp, rem, rev = 0;
+
+            num = Convert.ToInt32(txtNumber.Text);
+            temp = num;
+
+            while (temp > 0)
+            {
+                rem = temp % 10;
+                rev = rev * 10 + rem;
+                temp = temp / 10;
+            }
+
+            if (num == rev)
+                lblResult.Text = "Number is Palindrome";
+            else
+                lblResult.Text = "Number is not Palindrome";
+        }
+    }
+}

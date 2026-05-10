@@ -1,0 +1,110 @@
+Q1))
+
+using System;
+
+class Program
+{
+    // Function to count occurrences of a character
+    static int CountOccurrences(string str, char ch)
+    {
+        int count = 0;
+
+        foreach (char c in str)
+        {
+            if (c == ch)
+                count++;
+        }
+
+        return count;
+    }
+
+    static void Main()
+    {
+        Console.Write("Enter a string: ");
+        string str = Console.ReadLine();
+
+        Console.Write("Enter a character: ");
+        char ch = Convert.ToChar(Console.ReadLine());
+
+        int result = CountOccurrences(str, ch);
+
+        Console.WriteLine("Character '" + ch + "' occurs " + result + " times.");
+    }
+}
+
+
+Q2))
+
+
+using System;
+
+// Base Class
+class Person
+{
+    protected string name;
+    protected string birthdate;
+
+    public Person(string name, string birthdate)
+    {
+        this.name = name;
+        this.birthdate = birthdate;
+    }
+
+    public virtual void Print()
+    {
+        Console.WriteLine("Name      : " + name);
+        Console.WriteLine("Birthdate : " + birthdate);
+    }
+}
+
+// Derived Class Student
+class Student : Person
+{
+    private string course;
+
+    public Student(string name, string birthdate, string course)
+        : base(name, birthdate)
+    {
+        this.course = course;
+    }
+
+    public override void Print()
+    {
+        base.Print();
+        Console.WriteLine("Course    : " + course);
+    }
+}
+
+// Derived Class Instructor
+class Instructor : Person
+{
+    private double salary;
+
+    public Instructor(string name, string birthdate, double salary)
+        : base(name, birthdate)
+    {
+        this.salary = salary;
+    }
+
+    public override void Print()
+    {
+        base.Print();
+        Console.WriteLine("Salary    : " + salary);
+    }
+}
+
+// Main Class
+class Program
+{
+    static void Main()
+    {
+        Student s = new Student("Omkar", "12-05-2004", "Computer Science");
+        Instructor i = new Instructor("Dr. Patil", "20-08-1980", 55000);
+
+        Console.WriteLine("Student Details:");
+        s.Print();
+
+        Console.WriteLine("\nInstructor Details:");
+        i.Print();
+    }
+}

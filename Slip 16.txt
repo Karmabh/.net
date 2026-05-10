@@ -1,0 +1,95 @@
+Q1))
+
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        try
+        {
+            Console.Write("Enter a number (0 to 1000): ");
+            int num = int.Parse(Console.ReadLine());
+
+            if (num < 0 || num > 1000)
+                throw new Exception("Number must be between 0 and 1000");
+
+            Console.WriteLine("Valid Number: " + num);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+        }
+    }
+}
+
+
+Q2))
+
+
+using System;
+
+class Employee
+{
+    protected int id;
+    protected string name;
+
+    public Employee(int id, string name)
+    {
+        this.id = id;
+        this.name = name;
+    }
+
+    public virtual void Display()
+    {
+        Console.WriteLine("Employee ID : " + id);
+        Console.WriteLine("Employee Name : " + name);
+    }
+}
+
+class Programmer : Employee
+{
+    string language;
+
+    public Programmer(int id, string name, string language) : base(id, name)
+    {
+        this.language = language;
+    }
+
+    public override void Display()
+    {
+        Console.WriteLine("\n--- Programmer Details ---");
+        base.Display();
+        Console.WriteLine("Programming Language : " + language);
+    }
+}
+
+class Manager : Employee
+{
+    string department;
+
+    public Manager(int id, string name, string department) : base(id, name)
+    {
+        this.department = department;
+    }
+
+    public override void Display()
+    {
+        Console.WriteLine("\n--- Manager Details ---");
+        base.Display();
+        Console.WriteLine("Department : " + department);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Employee e1 = new Programmer(101, "Omkar", "C#");
+        Employee e2 = new Manager(201, "Rahul", "HR");
+
+        e1.Display();
+        e2.Display();
+    }
+}

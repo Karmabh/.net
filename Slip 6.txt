@@ -1,0 +1,67 @@
+Q1))
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        double num1, num2;
+
+        Console.Write("Enter first number: ");
+        num1 = Convert.ToDouble(Console.ReadLine());
+
+        Console.Write("Enter second number: ");
+        num2 = Convert.ToDouble(Console.ReadLine());
+
+        Console.WriteLine("\nAddition = " + (num1 + num2));
+        Console.WriteLine("Subtraction = " + (num1 - num2));
+        Console.WriteLine("Multiplication = " + (num1 * num2));
+
+        if (num2 != 0)
+            Console.WriteLine("Division = " + (num1 / num2));
+        else
+            Console.WriteLine("Division not possible (cannot divide by zero)");
+    }
+}
+
+
+Q2)
+
+
+using System;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class FlowerSelection : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            RadioButtonList1.RepeatColumns = 2;
+
+            RadioButtonList1.Items.Add("Rose");
+            RadioButtonList1.Items.Add("Lily");
+            RadioButtonList1.Items.Add("Lotus");
+            RadioButtonList1.Items.Add("Jasmine");
+            RadioButtonList1.Items.Add("Sunflower");
+            RadioButtonList1.Items.Add("Tulip");
+        }
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        Label1.Text = "Selected Flower: " + RadioButtonList1.SelectedItem.Text;
+    }
+}
+
+
+
+---------------------HTML--------------------
+
+<asp:RadioButtonList ID="RadioButtonList1" runat="server"></asp:RadioButtonList>
+<br />
+<asp:Button ID="Button1" runat="server" Text="Show Selected Flower" OnClick="Button1_Click" />
+<br /><br />
+<asp:Label ID="Label1" runat="server" Font-Bold="true"></asp:Label>

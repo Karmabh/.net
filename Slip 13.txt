@@ -1,0 +1,97 @@
+Q1))
+
+
+// Private Assembly Example in C#
+
+using System;
+
+// Class Library (save as MyLibrary.cs)
+namespace MyLibrary
+{
+    public class Message
+    {
+        public string ShowMessage()
+        {
+            return "This is a Private Assembly Example";
+        }
+    }
+}
+
+// Main Program (save as Program.cs)
+
+using System;
+using MyLibrary;   // Reference private assembly
+
+class Program
+{
+    static void Main()
+    {
+        Message obj = new Message();
+        Console.WriteLine(obj.ShowMessage());
+    }
+}
+
+
+
+Q2))
+
+
+// C# Program to Create Teacher Table, Insert Records and Display in GridView
+
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Windows.Forms;
+
+public class Form1 : Form
+{
+    DataGridView dgv = new DataGridView();
+
+    public Form1()
+    {
+        this.Text = "Teacher Details";
+        this.Size = new System.Drawing.Size(500, 300);
+
+        dgv.Dock = DockStyle.Fill;
+        this.Controls.Add(dgv);
+
+        Load += Form1_Load;
+    }
+
+    void Form1_Load(object sender, EventArgs e)
+    {
+        string conStr = @"Data Source=.;Initial Catalog=SchoolDB;Integrated Security=True";
+        SqlConnection con = new SqlConnection(conStr);
+        con.Open();
+
+        // Create Table
+        SqlCommand cmd = new SqlCommand(
+            "if not exists (select * from sysobjects where name='Teacher') " +
+            "create table Teacher(TID int, TName varchar(50), Salary float)", con);
+        cmd.ExecuteNonQuery();
+
+        // Insert 5 Records
+        cmd = new SqlCommand(
+            "insert into Teacher values " +
+            "(1,'Amit',25000)," +
+            "(2,'Neha',30000)," +
+            "(3,'Ravi',28000)," +
+            "(4,'Pooja',35000)," +
+            "(5,'Kiran',27000)", con);
+        cmd.ExecuteNonQuery();
+
+        // Display in GridView
+        SqlDataAdapter da = new SqlDataAdapter("select * from Teacher", con);
+        DataTable dt = new DataTable();
+        da.Fill(dt);
+        dgv.DataSource = dt;
+
+        con.Close();
+    }
+
+    [STAThread]
+    static void Main()
+    {
+        Application.Run(new Form1());
+    }
+}

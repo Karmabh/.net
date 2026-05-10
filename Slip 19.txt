@@ -1,0 +1,178 @@
+Q1))
+
+
+using System;
+using System.Text;
+using System.Windows.Forms;
+
+namespace PrimeNumbersApp
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void btnShowPrimes_Click(object sender, EventArgs e)
+        {
+            StringBuilder primes = new StringBuilder();
+
+            for (int i = 2; i <= 100; i++)
+            {
+                if (IsPrime(i))
+                {
+                    primes.Append(i + " ");
+                }
+            }
+
+            label1.Text = "Prime Numbers (1 to 100):\n" + primes.ToString();
+        }
+
+        private bool IsPrime(int num)
+        {
+            for (int i = 2; i <= num / 2; i++)
+            {
+                if (num % i == 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+}
+
+
+
+
+Q2))
+
+using System;
+using System.Windows.Forms;
+using System.Drawing;
+
+namespace BasicCalculator
+{
+    public class CalculatorForm : Form
+    {
+        // UI Controls
+        private TextBox display;
+        private double resultValue = 0;
+        private string operationPerformed = "";
+        private bool isOperationPerformed = false;
+
+        public CalculatorForm()
+        {
+            InitializeComponent();
+        }
+
+        private void InitializeComponent()
+        {
+            // Form Settings
+            this.Text = "Calculator";
+            this.Width = 320;
+            this.Height = 400;
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+
+            // Display TextBox
+            display = new TextBox();
+            display.Font = new Font("Arial", 20);
+            display.Width = 280;
+            display.Location = new Point(10, 10);
+            display.TextAlign = HorizontalAlignment.Right;
+            display.Text = "0";
+            this.Controls.Add(display);
+
+            // Button Labels based on the image
+            string[] buttons = {
+                "7", "8", "9", "/", "CE",
+                "4", "5", "6", "*", "C",
+                "1", "2", "3", "-", "=",
+                "0", ".", "+"
+            };
+
+            int x = 10, y = 60;
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                Button btn = new Button();
+                btn.Text = buttons[i];
+                btn.Font = new Font("Arial", 12, FontStyle.Bold);
+                
+                // Set specific sizes for special buttons like '0' and '='
+                if (buttons[i] == "0") {
+                    btn.Size = new Size(110, 50);
+                } else if (buttons[i] == "=") {
+                    btn.Size = new Size(50, 110);
+                } else {
+                    btn.Size = new Size(50, 50);
+                }
+
+                btn.Location = new Point(x, y);
+                btn.Click += Button_Click;
+                this.Controls.Add(btn);
+
+                // Grid Logic
+                if (buttons[i] == "=") { /* Skip incrementing y for the tall button */ }
+                
+                if ((i + 1) % 5 == 0 && i != 0) {
+                    x = 10;
+                    y += 60;
+                } else {
+                    x += 60;
+                    if (buttons[i] == "0") x += 60; // Offset for the wide '0'
+                }
+            }
+        }
+
+        private void Button_Click(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            string text = button.Text;
+
+            if (char.IsDigit(text[0]) || text == ".")
+            {
+                if ((display.Text == "0") || (isOperationPerformed))
+                    display.Clear();
+
+                isOperationPerformed = false;
+                display.Text += text;
+            }
+            else if (text == "CE")
+            {
+                display.Text = "0";
+            }
+            else if (text == "C")
+            {
+                display.Text = "0";
+                resultValue = 0;
+            }
+            else if (text == "=")
+            {
+                switch (operationPerformed)
+                {
+                    case "+": display.Text = (resultValue + Double.Parse(display.Text)).ToString(); break;
+                    case "-": display.Text = (resultValue - Double.Parse(display.Text)).ToString(); break;
+                    case "*": display.Text = (resultValue * Double.Parse(display.Text)).ToString(); break;
+                    case "/": display.Text = (resultValue / Double.Parse(display.Text)).ToString(); break;
+                }
+                resultValue = Double.Parse(display.Text);
+                operationPerformed = "";
+            }
+            else // Arithmetic operators
+            {
+                operationPerformed = text;
+                resultValue = Double.Parse(display.Text);
+                isOperationPerformed = true;
+            }
+        }
+
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.Run(new CalculatorForm());
+        }
+    }
+}

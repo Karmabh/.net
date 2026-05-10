@@ -1,0 +1,120 @@
+Q1))
+
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int m, n;
+
+        Console.Write("Enter number of rows (M): ");
+        m = Convert.ToInt32(Console.ReadLine());
+
+        Console.Write("Enter number of columns (N): ");
+        n = Convert.ToInt32(Console.ReadLine());
+
+        int[,] A = new int[m, n];
+        int[,] B = new int[m, n];
+        int[,] Sum = new int[m, n];
+        int[,] Transpose = new int[n, m];
+
+        Console.WriteLine("\nEnter elements of Matrix A:");
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                Console.Write("A[" + i + "," + j + "] = ");
+                A[i, j] = Convert.ToInt32(Console.ReadLine());
+            }
+        }
+
+        Console.WriteLine("\nEnter elements of Matrix B:");
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                Console.Write("B[" + i + "," + j + "] = ");
+                B[i, j] = Convert.ToInt32(Console.ReadLine());
+            }
+        }
+
+        // Addition
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                Sum[i, j] = A[i, j] + B[i, j];
+            }
+        }
+
+        // Transpose of Matrix A
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                Transpose[j, i] = A[i, j];
+            }
+        }
+
+        Console.WriteLine("\nAddition of Matrices:");
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                Console.Write(Sum[i, j] + "\t");
+            }
+            Console.WriteLine();
+        }
+
+        Console.WriteLine("\nTranspose of Matrix A:");
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < m; j++)
+            {
+                Console.Write(Transpose[i, j] + "\t");
+            }
+            Console.WriteLine();
+        }
+    }
+}
+
+
+
+Q2))
+
+
+
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        Stack<int> stack = new Stack<int>();
+
+        // Push elements
+        stack.Push(10);
+        stack.Push(20);
+        stack.Push(30);
+
+        Console.WriteLine("Elements pushed: 10, 20, 30");
+
+        // Top element
+        Console.WriteLine("Top element: " + stack.Peek());
+
+        // Pop element
+        Console.WriteLine("Popped element: " + stack.Pop());
+
+        // Top after pop
+        Console.WriteLine("Top element after pop: " + stack.Peek());
+
+        // Check if stack is empty
+        if (stack.Count == 0)
+            Console.WriteLine("Stack is empty");
+        else
+            Console.WriteLine("Stack is not empty");
+    }
+}

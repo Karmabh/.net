@@ -1,0 +1,89 @@
+Q1))
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        string str, rev = "";
+        
+        Console.Write("Enter a string: ");
+        str = Console.ReadLine();
+
+        // Reverse the string
+        for (int i = str.Length - 1; i >= 0; i--)
+        {
+            rev += str[i];
+        }
+
+        // Check palindrome
+        if (str.Equals(rev, StringComparison.OrdinalIgnoreCase))
+            Console.WriteLine("The string is a Palindrome.");
+        else
+            Console.WriteLine("The string is not a Palindrome.");
+    }
+}
+
+
+
+Q2))
+
+
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace MessageFormatterApp
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        // Display concatenated text
+        private void btnDisplay_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = txtName.Text + " : " + txtMessage.Text;
+        }
+
+        // Change Font Style
+        private void chkStyle_CheckedChanged(object sender, EventArgs e)
+        {
+            FontStyle style = FontStyle.Regular;
+
+            if (chkBold.Checked)
+                style |= FontStyle.Bold;
+
+            if (chkItalic.Checked)
+                style |= FontStyle.Italic;
+
+            if (chkUnderline.Checked)
+                style |= FontStyle.Underline;
+
+            lblMessage.Font = new Font(lblMessage.Font.FontFamily, 12, style);
+        }
+
+        // Change Foreground Color
+        private void btnForeColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog cd = new ColorDialog();
+            if (cd.ShowDialog() == DialogResult.OK)
+            {
+                lblMessage.ForeColor = cd.Color;
+            }
+        }
+
+        // Change Background Color
+        private void btnBackColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog cd = new ColorDialog();
+            if (cd.ShowDialog() == DialogResult.OK)
+            {
+                lblMessage.BackColor = cd.Color;
+            }
+        }
+    }
+}

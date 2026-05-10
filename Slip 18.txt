@@ -1,0 +1,77 @@
+Q1))
+
+
+using System;
+using System.IO;
+
+class FileCompare
+{
+    static void Main()
+    {
+        string file1 = "file1.txt";
+        string file2 = "file2.txt";
+
+        StreamReader sr1 = new StreamReader(file1);
+        StreamReader sr2 = new StreamReader(file2);
+
+        string text1 = sr1.ReadToEnd();
+        string text2 = sr2.ReadToEnd();
+
+        sr1.Close();
+        sr2.Close();
+
+        if (text1 == text2)
+            Console.WriteLine("Both files are same.");
+        else
+            Console.WriteLine("Both files are different.");
+    }
+}
+
+
+
+Q2)
+
+
+using System;
+using System.Windows.Forms;
+
+public class Form1 : Form
+{
+    TextBox txtNum;
+    ListBox listBox;
+    Button btnShow;
+
+    public Form1()
+    {
+        this.Text = "Multiplication Table";
+        this.Width = 300;
+        this.Height = 300;
+
+        txtNum = new TextBox() { Left = 30, Top = 20, Width = 100 };
+        btnShow = new Button() { Left = 150, Top = 20, Width = 80, Text = "Show" };
+        listBox = new ListBox() { Left = 30, Top = 60, Width = 200, Height = 150 };
+
+        btnShow.Click += ShowTable;
+
+        Controls.Add(txtNum);
+        Controls.Add(btnShow);
+        Controls.Add(listBox);
+    }
+
+    void ShowTable(object sender, EventArgs e)
+    {
+        int n = int.Parse(txtNum.Text);
+        listBox.Items.Clear();
+
+        for (int i = 1; i <= 10; i++)
+        {
+            listBox.Items.Add(n + " x " + i + " = " + (n * i));
+        }
+    }
+
+    [STAThread]
+    static void Main()
+    {
+        Application.Run(new Form1());
+    }
+}

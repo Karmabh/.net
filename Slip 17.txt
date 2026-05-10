@@ -1,0 +1,87 @@
+Q1))
+
+
+using System;
+
+class SwapDemo
+{
+    // Function for swapping integers
+    static void Swap(ref int a, ref int b, ref int c)
+    {
+        int temp = a;
+        a = b;
+        b = c;
+        c = temp;
+    }
+
+    // Function for swapping float numbers
+    static void Swap(ref float a, ref float b, ref float c)
+    {
+        float temp = a;
+        a = b;
+        b = c;
+        c = temp;
+    }
+
+    static void Main()
+    {
+        int x = 10, y = 20, z = 30;
+        float p = 1.1f, q = 2.2f, r = 3.3f;
+
+        Console.WriteLine("Before Swapping Integers: {0}, {1}, {2}", x, y, z);
+        Swap(ref x, ref y, ref z);
+        Console.WriteLine("After Swapping Integers: {0}, {1}, {2}", x, y, z);
+
+        Console.WriteLine("\nBefore Swapping Floats: {0}, {1}, {2}", p, q, r);
+        Swap(ref p, ref q, ref r);
+        Console.WriteLine("After Swapping Floats: {0}, {1}, {2}", p, q, r);
+    }
+}
+
+
+Q2))
+
+using System;
+
+class MatrixMultiplication
+{
+    static void Main()
+    {
+        int[,] A = new int[3, 3];
+        int[,] B = new int[3, 3];
+        int[,] C = new int[3, 3];
+
+        Console.WriteLine("Enter first 3x3 matrix:");
+        for (int i = 0; i < 3; i++)
+            for (int j = 0; j < 3; j++)
+                A[i, j] = int.Parse(Console.ReadLine());
+
+        Console.WriteLine("Enter second 3x3 matrix:");
+        for (int i = 0; i < 3; i++)
+            for (int j = 0; j < 3; j++)
+                B[i, j] = int.Parse(Console.ReadLine());
+
+        // Matrix Multiplication
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                C[i, j] = 0;
+                for (int k = 0; k < 3; k++)
+                {
+                    C[i, j] += A[i, k] * B[k, j];
+                }
+            }
+        }
+
+        Console.WriteLine("Multiplication of matrices:");
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                Console.Write(C[i, j] + " ");
+            }
+            Console.WriteLine();
+        }
+    }
+}

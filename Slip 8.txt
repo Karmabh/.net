@@ -1,0 +1,88 @@
+Q1))
+
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[] arr = { 25, 10, 45, 5, 78, 30 };
+
+        int min = arr[0];
+        int max = arr[0];
+
+        for (int i = 1; i < arr.Length; i++)
+        {
+            if (arr[i] < min)
+                min = arr[i];
+
+            if (arr[i] > max)
+                max = arr[i];
+        }
+
+        Console.WriteLine("Minimum element = " + min);
+        Console.WriteLine("Maximum element = " + max);
+    }
+}
+
+
+
+Q2))
+
+
+using System;
+using System.Data.SqlClient;
+
+class Program
+{
+    static void Main()
+    {
+        string conStr = @"Data Source=.;Initial Catalog=StudentDB;Integrated Security=True";
+        SqlConnection con = new SqlConnection(conStr);
+
+        con.Open();
+
+        // Create Table
+        string createTable = "CREATE TABLE student (rollno INT PRIMARY KEY, name VARCHAR(50), per FLOAT)";
+        SqlCommand cmd = new SqlCommand(createTable, con);
+        cmd.ExecuteNonQuery();
+
+        // Insert Records
+        string insertQuery = "INSERT INTO student VALUES " +
+                             "(1,'Kiran',95)," +
+                             "(2,'Amit',35)," +
+                             "(3,'Komal',92)," +
+                             "(4,'Rohit',76)," +
+                             "(5,'Kunal',38)";
+        cmd = new SqlCommand(insertQuery, con);
+        cmd.ExecuteNonQuery();
+
+        // a) Delete students with less than 40%
+        cmd = new SqlCommand("DELETE FROM student WHERE per < 40", con);
+        cmd.ExecuteNonQuery();
+        Console.WriteLine("Students with less than 40% deleted.\n");
+
+        // b) Display students with more than 90%
+        Console.WriteLine("Students with more than 90%:");
+        cmd = new SqlCommand("SELECT name FROM student WHERE per > 90", con);
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            Console.WriteLine(dr["name"]);
+        }
+        dr.Close();
+
+        // c) Display students whose name starts with K
+        Console.WriteLine("\nStudents whose name starts with K:");
+        cmd = new SqlCommand("SELECT name FROM student WHERE name LIKE 'K%'", con);
+        dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            Console.WriteLine(dr["name"]);
+        }
+        dr.Close();
+
+        con.Close();
+    }
+}
